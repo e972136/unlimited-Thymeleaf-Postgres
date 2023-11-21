@@ -87,7 +87,7 @@ public class EstimacionThymeleafController {
             @ModelAttribute Estimacion estimacion, Model model
     ){
         System.err.println("/principal/saveReparaciones/"+estimacion);
-//        estimacion= estimacionService.saveRepuestos(estimacion);
+        estimacion= estimacionService.saveReparaciones(estimacion);
         model.addAttribute("estimacion",estimacion);
         return "redirect:/principal/editarEstimacion/?id="+estimacion.getId();
     }

@@ -13,4 +13,6 @@ public interface EstimacionService {
     List<Estimacion> findAll();
 
     Estimacion saveRepuestos(Estimacion estimacion);
+
+    Estimacion saveReparaciones(Estimacion estimacion);
 }

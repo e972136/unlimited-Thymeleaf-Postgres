@@ -3,6 +3,7 @@ package com.unlimited.estimaciones.service.impl;
 import com.unlimited.estimaciones.entity.Estimacion;
 import com.unlimited.estimaciones.entity.Repuesto;
 import com.unlimited.estimaciones.repository.EstimacionRepository;
+import com.unlimited.estimaciones.repository.ReparacionRepository;
 import com.unlimited.estimaciones.service.EstimacionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,14 +11,16 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EstimacionServiceImpl implements EstimacionService {
     private final EstimacionRepository estimacionRepository;
+    private final ReparacionRepository reparacionRepository;
 
-    public EstimacionServiceImpl(EstimacionRepository estimacionRepository) {
+    public EstimacionServiceImpl(EstimacionRepository estimacionRepository, ReparacionRepository reparacionRepository) {
         this.estimacionRepository = estimacionRepository;
+        this.reparacionRepository = reparacionRepository;
     }
 
     @Override
@@ -45,6 +48,40 @@ public class EstimacionServiceImpl implements EstimacionService {
             r.setDescripcion(repuesto.getDescripcion());
             r.setPrecio(repuesto.getPrecio());
         });
-        return estimacion;
+        return estimacionDB;
     }
+
+    @Override
+    public Estimacion saveReparaciones(Estimacion estimacion) {
+        Estimacion estimacionDB = estimacionRepository.findById(estimacion.getId()).get();
+
+        reparacionRepository.deleteAllById(estimacionDB.getReparaciones().stream().map(x->x.getId()).collect(Collectors.toList()));
+
+//        estimacionDB.getReparaciones().forEach(x->
+//                reparacionRepository.deleteById(x.getId())
+//        );
+
+        Estimacion x = new Estimacion();
+        x.setId(estimacionDB.getId());
+        estimacion.getReparaciones().forEach(t->{
+            t.setEstimacionParent(x);
+            reparacionRepository.save(t);
+        });
+
+
+//        reparacionRepository.saveAll(estimacion.getReparaciones());
+/*
+        List<Reparacion> reparaciones = estimacion.getReparaciones();
+
+        estimacionDB.getReparaciones().forEach(r->{
+            Reparacion repuesto = reparaciones.stream().filter(a -> a.getId() == r.getId()).findAny().get();
+            r.setDetalleReparacion(repuesto.getDetalleReparacion());
+            r.setPrecio(repuesto.getPrecio());
+        });
+
+ */
+        return estimacionDB;
+    }
+
+
 }
