@@ -33,7 +33,13 @@
                 <td th:text=${ob.id}></td>
                 <td th:text=${ob.asegurado}></td>
                 <td th:text=${ob.estimadoPor}  colspan="2"></td>
-                <td th:text=${ob.fechaEvaluacion}></td>
+                
+                <td th:text="${#dates.format(ob.fechaEvaluacion, 'dd-MM-yyyy')}"></td>             
+<!--                acciones -->
+                <td>
+                    <a th:href="@{/principal/editarEstimacion(id=${ob.id})}" class="btn btn-warning">Editar
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -51,14 +57,14 @@
                 </nav>
             </div>
         </div>
-        <a th:href="@{/thymeleaf/cliente/agregarCliente}" class="btn btn-success ">Agregar Cliente <i
-                class="fa fa-plus-square" aria-hidden="true"></i></a>
+<!--        fin paginacion-->
+        <a th:href="@{/thymeleaf/cliente/agregarCliente}" class="btn btn-success ">Agregar Estimacion <i class="fa fa-plus-square" aria-hidden="true"></i></a>
+
         <a th:href="@{/thymeleaf}" class="btn btn-primary">Regresar</a>
-        <!--            </div>-->
+
         <div class="card-footer bg-white text-success" th:if="${message!=null}">
             <span th:text="${message}"></span>
         </div>
-        <!--</div>-->
     </div>
 
 

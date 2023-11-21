@@ -18,7 +18,7 @@ public class Repuesto {
     int id;
 
     @ManyToOne
-    @JoinColumn(name="estimacion_id", nullable=false)
+    @JoinColumn(name="estimacionId", nullable=false)
     @JsonBackReference
     Estimacion estimacionParent;
 

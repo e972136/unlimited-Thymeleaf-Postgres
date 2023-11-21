@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 @Entity
 @Data
@@ -23,7 +26,7 @@ public class Estimacion {
     String asegurado;
     String estimadoPor;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date fechaEvaluacion;
 
     String aseguradora;
@@ -59,4 +62,14 @@ public class Estimacion {
     @OneToMany(mappedBy = "estimacionParent", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Repuesto> repuestos;
+
+    @Transient
+    BigDecimal totalRepuestos;
+
+    public BigDecimal getTotalRepuestos(){
+        if(isNull(repuestos) || repuestos.isEmpty()){
+            return BigDecimal.ZERO;
+        }
+        return repuestos.stream().map(a -> a.getPrecio()).reduce(BigDecimal::add).get();
+    }
 }
