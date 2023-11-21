@@ -1,5 +1,6 @@
 package com.unlimited.estimaciones.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,10 @@ public class Estimacion {
 
     String asegurado;
     String estimadoPor;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
     Date fechaEvaluacion;
+
     String aseguradora;
     String placa;
     String marca;

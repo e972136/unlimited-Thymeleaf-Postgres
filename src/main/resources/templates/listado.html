@@ -13,26 +13,55 @@
     <title>Unlimited</title>
 </head>
 <body>
-<div>
-    <table class="table table-dark table-striped">
-        <thead>
-        <tr class="bg-dark text-white">
-            <th scope="col">Estimacion</th>
-            <th scope="col">Asegurado</th>
-            <th scope="col">Estimado por</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="ob:${listado}">
-            <td th:text=${ob.id}></td>
-            <td th:text=${ob.asegurado}></td>
-            <td th:text=${ob.estimadoPor}  colspan="2"></td>
-            <td th:text=${ob.fechaEvaluacion}></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="container">
+        <div class ="row">
+            <h1>Listado Estimaciones</h1>
+        </div>
+        <table class="table table-dark table-striped">
+            <thead>
+            <tr class="bg-dark text-white">
+                <th scope="col">Estimacion</th>
+                <th scope="col">Asegurado</th>
+                <th scope="col">Estimado por</th>
+                <th scope="col"> </th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ob:${listado}">
+                <td th:text=${ob.id}></td>
+                <td th:text=${ob.asegurado}></td>
+                <td th:text=${ob.estimadoPor}  colspan="2"></td>
+                <td th:text=${ob.fechaEvaluacion}></td>
+            </tr>
+            </tbody>
+        </table>
+        <!--                componente paginacion, no olvidar poner el bean en el principal-->
+        <div class="row">
+            <div class="col-sm-6">
+                <!--                        activar para mostrar total de registros-->
+                <!--                        <div sd:pagination-summary=""></div>-->
+            </div>
+            <div class="col-sm-6">
+                <nav class="pull-right">
+                    <ul class="pagination" sd:pagination="full">
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <a th:href="@{/thymeleaf/cliente/agregarCliente}" class="btn btn-success ">Agregar Cliente <i
+                class="fa fa-plus-square" aria-hidden="true"></i></a>
+        <a th:href="@{/thymeleaf}" class="btn btn-primary">Regresar</a>
+        <!--            </div>-->
+        <div class="card-footer bg-white text-success" th:if="${message!=null}">
+            <span th:text="${message}"></span>
+        </div>
+        <!--</div>-->
+    </div>
+
+
+
 </body>
 </html>

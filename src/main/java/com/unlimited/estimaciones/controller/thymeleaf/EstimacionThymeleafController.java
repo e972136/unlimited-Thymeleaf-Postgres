@@ -1,4 +1,4 @@
-package com.unlimited.estimaciones.controller;
+package com.unlimited.estimaciones.controller.thymeleaf;
 
 import com.unlimited.estimaciones.entity.Estimacion;
 import com.unlimited.estimaciones.service.EstimacionService;
@@ -24,7 +24,7 @@ public class EstimacionThymeleafController {
 
     @GetMapping("/estimaciones")
     public String obtenerEstimaciones(
-            @PageableDefault(size = 5,sort = "id",direction  = Sort.Direction.DESC) Pageable page,
+            @PageableDefault(size = 15,sort = "id",direction  = Sort.Direction.DESC) Pageable page,
             @RequestParam(value = "message",required = false) String message,
             @RequestParam(required = false) String busqueda,
             Model model
