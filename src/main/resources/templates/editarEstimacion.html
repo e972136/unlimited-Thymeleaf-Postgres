@@ -88,11 +88,26 @@
                         </div>
 
                     </div>
+
                     <div class="row">
                         <a th:href="@{/principal/editarRepuestos(id=*{id})}" class="btn btn-warning">
                             LISTA DE REPUESTOS NECESARIOS A REEMPLAZAR
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                         <input type="text" class="form-control" id="totalRepuestos" th:field="*{totalRepuestos}" disabled>
+                    </div>
+
+                    <div class="row">
+                        <a th:href="@{/principal/editarReparaciones(id=*{id})}" class="btn btn-warning">
+                            LISTA DE REPARACIONES
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <input type="text" class="form-control" id="totalReparaciones" th:field="*{totalReparaciones}" disabled>
+                    </div>
+
+                    <div class="row">
+                        <a th:href="@{/principal/editarReparacionesAdicionales(id=*{id})}" class="btn btn-warning">
+                            LISTA DE REPARACIONES ADICIONALES
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <input type="text" class="form-control" id="totalReparacionesAdicionales" th:field="*{totalReparacionesAdicionales}" disabled>
                     </div>
 
 

@@ -28,6 +28,7 @@ public class EstimacionThymeleafController {
             @RequestParam(required = false) String busqueda,
             Model model
     ){
+        System.err.println("/principal/estimaciones");
         Page<Estimacion> estimaciones=estimacionService.findAll(page);
 
         model.addAttribute("listado",estimaciones);
@@ -66,6 +67,48 @@ public class EstimacionThymeleafController {
 //        /principal/saveRepuesto
         System.err.println("patito "+estimacion);
         estimacion= estimacionService.saveRepuestos(estimacion);
+        model.addAttribute("estimacion",estimacion);
+        return "redirect:/principal/editarEstimacion/?id="+estimacion.getId();
+    }
+
+    @GetMapping("/editarReparaciones")
+    public String obtenerPaginaEditarReparaciones(
+            Model model,
+            RedirectAttributes attributes,
+            @RequestParam int id
+    ){
+        Estimacion estimacion = estimacionService.findById(id);
+        model.addAttribute("estimacion",estimacion);
+        return "editarReparaciones";
+    }
+
+    @PostMapping("/saveReparaciones")
+    public String guardarReparaciones(
+            @ModelAttribute Estimacion estimacion, Model model
+    ){
+        System.err.println("/principal/saveReparaciones/"+estimacion);
+//        estimacion= estimacionService.saveRepuestos(estimacion);
+        model.addAttribute("estimacion",estimacion);
+        return "redirect:/principal/editarEstimacion/?id="+estimacion.getId();
+    }
+
+    @GetMapping("/editarReparacionesAdicionales")
+    public String obtenerPaginaEditarReparacionesAdicionales(
+            Model model,
+            RedirectAttributes attributes,
+            @RequestParam int id
+    ){
+        Estimacion estimacion = estimacionService.findById(id);
+        model.addAttribute("estimacion",estimacion);
+        return "editarReparacionesAdicionales";
+    }
+
+    @PostMapping("/saveReparacionesAdicionales")
+    public String guardarReparacionesAdicionales(
+            @ModelAttribute Estimacion estimacion, Model model
+    ){
+        System.err.println("/principal/saveReparacionesAdicionales/"+estimacion);
+//        estimacion= estimacionService.saveRepuestos(estimacion);
         model.addAttribute("estimacion",estimacion);
         return "redirect:/principal/editarEstimacion/?id="+estimacion.getId();
     }

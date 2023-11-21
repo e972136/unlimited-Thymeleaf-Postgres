@@ -1,6 +1,5 @@
 package com.unlimited.estimaciones.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -57,7 +56,7 @@ public class Estimacion {
 
     @OneToMany(mappedBy = "estimacionParent")
     @JsonManagedReference
-    private List<ReparacionAdicional> ReparacionesAdicionales;
+    private List<ReparacionAdicional> reparacionesAdicionales;
 
     @OneToMany(mappedBy = "estimacionParent", cascade = CascadeType.ALL)
     @JsonManagedReference
@@ -72,4 +71,26 @@ public class Estimacion {
         }
         return repuestos.stream().map(a -> a.getPrecio()).reduce(BigDecimal::add).get();
     }
+
+    @Transient
+    BigDecimal totalReparaciones;
+
+    public BigDecimal getTotalReparaciones(){
+        if(isNull(reparaciones) || reparaciones.isEmpty()){
+            return BigDecimal.ZERO;
+        }
+        return reparaciones.stream().map(a -> a.getPrecio()).reduce(BigDecimal::add).get();
+    }
+
+    @Transient
+    BigDecimal totalReparacionesAdicionales;
+
+    public BigDecimal getTotalReparacionesAdicionales(){
+        if(isNull(reparacionesAdicionales) || reparacionesAdicionales.isEmpty()){
+            return BigDecimal.ZERO;
+        }
+        return reparacionesAdicionales.stream().map(a -> a.getValorReparacion()).reduce(BigDecimal::add).get();
+    }
+
+
 }

@@ -22,7 +22,9 @@ public class ReparacionAdicional {
     @JsonBackReference
     Estimacion estimacionParent;
 
-    String reparacionAdicional;
+    @Column(name = "reparacionAdicional")
+    String reparacionAdicionalDetalle;
+
     BigDecimal valorReparacion;
     String tipo;
 }
