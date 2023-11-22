@@ -69,7 +69,11 @@ public class Estimacion {
         if(isNull(repuestos) || repuestos.isEmpty()){
             return BigDecimal.ZERO;
         }
-        return repuestos.stream().map(a -> a.getPrecio()).reduce(BigDecimal::add).get();
+        return repuestos
+                .stream()
+                .map(a -> (a.getPrecio()==null)?BigDecimal.ZERO:a.getPrecio())
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
     }
 
     @Transient
@@ -79,7 +83,11 @@ public class Estimacion {
         if(isNull(reparaciones) || reparaciones.isEmpty()){
             return BigDecimal.ZERO;
         }
-        return reparaciones.stream().map(a -> a.getPrecio()).reduce(BigDecimal::add).get();
+
+        return reparaciones
+                .stream()
+                .map(a -> (a.getPrecio()==null)?BigDecimal.ZERO:a.getPrecio())
+                .reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
     }
 
     @Transient
@@ -89,7 +97,11 @@ public class Estimacion {
         if(isNull(reparacionesAdicionales) || reparacionesAdicionales.isEmpty()){
             return BigDecimal.ZERO;
         }
-        return reparacionesAdicionales.stream().map(a -> a.getValorReparacion()).reduce(BigDecimal::add).get();
+        return reparacionesAdicionales
+                .stream()
+                .map(a -> (a.getValorReparacion()==null?BigDecimal.ZERO:a.getValorReparacion()))
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
     }
 
 
