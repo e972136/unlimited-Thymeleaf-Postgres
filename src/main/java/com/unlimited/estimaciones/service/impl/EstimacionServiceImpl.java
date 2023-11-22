@@ -1,6 +1,7 @@
 package com.unlimited.estimaciones.service.impl;
 
 import com.unlimited.estimaciones.entity.Estimacion;
+import com.unlimited.estimaciones.entity.Reparacion;
 import com.unlimited.estimaciones.entity.Repuesto;
 import com.unlimited.estimaciones.repository.EstimacionRepository;
 import com.unlimited.estimaciones.repository.ReparacionRepository;
@@ -10,8 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.Objects.isNull;
 
 @Service
 public class EstimacionServiceImpl implements EstimacionService {
@@ -55,32 +58,35 @@ public class EstimacionServiceImpl implements EstimacionService {
     public Estimacion saveReparaciones(Estimacion estimacion) {
         Estimacion estimacionDB = estimacionRepository.findById(estimacion.getId()).get();
 
-        reparacionRepository.deleteAllById(estimacionDB.getReparaciones().stream().map(x->x.getId()).collect(Collectors.toList()));
-
+//        reparacionRepository.deleteAllById(estimacionDB.getReparaciones().stream().map(x->x.getId()).collect(Collectors.toList()));
 //        estimacionDB.getReparaciones().forEach(x->
 //                reparacionRepository.deleteById(x.getId())
 //        );
 
+//        Actualiza o ingresa datos nuevos
         Estimacion x = new Estimacion();
-        x.setId(estimacionDB.getId());
-        estimacion.getReparaciones().forEach(t->{
-            t.setEstimacionParent(x);
-            reparacionRepository.save(t);
-        });
+        List<Reparacion> reparacionesPantalla = estimacion.getReparaciones();
+        if(!isNull(reparacionesPantalla) && !reparacionesPantalla.isEmpty()){
+            x.setId(estimacionDB.getId());
+            reparacionesPantalla.forEach(t->{
+                t.setEstimacionParent(x);
+            });
+            reparacionRepository.saveAll(reparacionesPantalla);
+        }
+
+//      Elimina los que no deben estar
 
 
-//        reparacionRepository.saveAll(estimacion.getReparaciones());
-/*
-        List<Reparacion> reparaciones = estimacion.getReparaciones();
 
-        estimacionDB.getReparaciones().forEach(r->{
-            Reparacion repuesto = reparaciones.stream().filter(a -> a.getId() == r.getId()).findAny().get();
-            r.setDetalleReparacion(repuesto.getDetalleReparacion());
-            r.setPrecio(repuesto.getPrecio());
-        });
-
- */
         return estimacionDB;
+    }
+
+    @Override
+    public void agregarReparacion(int id) {
+        System.out.println("patito "+id);
+        Estimacion x = new Estimacion();
+        x.setId(id);
+        reparacionRepository.saveAndFlush(new Reparacion(0,x," ", BigDecimal.ZERO));
     }
 
 

@@ -13,11 +13,13 @@
     <title>Editar Reparaciones</title>
 </head>
 
+
+
 <body>
     <div class="container">
         <div class="row">
             <!-- https://www.baeldung.com/thymeleaf-list -->
-            <form th:action="@{/principal/saveReparaciones}" th:object="${estimacion}" method="POST">
+            <form th:action="@{/principal/saveReparaciones}" th:object="${estimacion}" method="POST" id="myForm">
                 <div class="row">
                     <div class="col-6">
                         <input type="text" class="form-control" id="estimacion" th:field="*{id}" readonly>
@@ -25,9 +27,9 @@
                     </div>
                 </div>
                 <fieldset>
-                    <button type="submit" class="btn btn-success">Guardar<i class="fa fa-plus-square"
-                            aria-hidden="true"></i></button>
-                    <input type="reset" id="resetButton" name="reset" th:value="Reset" />
+                    <button type="submit" class="btn btn-success">Guardar<i class="fa fa-plus-square" aria-hidden="true"></i></button>
+                    <input type="reset" class="btn btn-danger" id="resetButton" name="reset" th:value="Reset" />
+                    <a th:href="@{/principal/agregarReparacion(id=${estimacion.id})}" class="btn btn-warning">Agregar<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     <table>
                         <thead>
                             <tr>
@@ -37,22 +39,37 @@
                                 <th scope="col"> </th>
                                 <th scope="col"> </th>
                                 <th scope="col"> </th>
-                                <th scope="col"> </th>
                                 <th scope="col">Precio</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="rep, itemStat : *{reparaciones}">
-                                <td><input th:field="*{reparaciones[__${itemStat.index}__].id}" readonly/></td>
-                                <td colspan="6"><input th:field="*{reparaciones[__${itemStat.index}__].detalleReparacion}" /></td>
-                                <td><input th:field="*{reparaciones[__${itemStat.index}__].precio}" /></td>
+                                <td>
+                                    <input th:field="*{reparaciones[__${itemStat.index}__].id}" readonly/>
+                                </td>
+                                <td colspan="7" >
+                                    <input th:field="*{reparaciones[__${itemStat.index}__].detalleReparacion}"/>
+                                </td>
+                                <td>
+                                    <input type="number" step="0.01" th:field="*{reparaciones[__${itemStat.index}__].precio}" />
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </fieldset>
             </form>
         </div>
-    </div>   
+    </div>
+
+    <!-- JavaScript to prevent form submission on Enter key -->
+    <script>
+        document.getElementById("myForm").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+            }
+        });
+    </script>
+
 </body>
 
 </html>

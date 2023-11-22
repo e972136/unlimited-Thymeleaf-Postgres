@@ -89,7 +89,18 @@ public class EstimacionThymeleafController {
         System.err.println("/principal/saveReparaciones/"+estimacion);
         estimacion= estimacionService.saveReparaciones(estimacion);
         model.addAttribute("estimacion",estimacion);
+        //llamar al endpoint
         return "redirect:/principal/editarEstimacion/?id="+estimacion.getId();
+    }
+
+    @GetMapping("/agregarReparacion")
+    public String agregarReparacion(
+            @RequestParam int id,
+            Model model
+    ){
+        estimacionService.agregarReparacion(id);
+        //llamar al endpoint
+        return "redirect:/principal/editarReparaciones?id="+id;
     }
 
     @GetMapping("/editarReparacionesAdicionales")
