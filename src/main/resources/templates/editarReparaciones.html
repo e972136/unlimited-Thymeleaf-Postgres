@@ -16,10 +16,10 @@
 
 
 <body>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             <!-- https://www.baeldung.com/thymeleaf-list -->
-            <form th:action="@{/principal/saveReparaciones}" th:object="${estimacion}" method="POST" id="myForm">
+            <form th:action="@{/reparaciones/saveReparaciones}" th:object="${estimacion}" method="POST" id="myForm">
                 <div class="row">
                     <div class="col-6">
                         <input type="text" class="form-control" id="estimacion" th:field="*{id}" readonly>
@@ -27,9 +27,9 @@
                     </div>
                 </div>
                 <fieldset>
-                    <button type="submit" class="btn btn-success">Guardar<i class="fa fa-plus-square" aria-hidden="true"></i></button>
-                    <input type="reset" class="btn btn-danger" id="resetButton" name="reset" th:value="Reset" />
-                    <a th:href="@{/principal/agregarReparacion(id=${estimacion.id})}" class="btn btn-warning">Agregar<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <button type="submit" class="btn btn-success col-3">Guardar<i class="fa fa-plus-square" aria-hidden="true"></i></button>
+                    <input type="reset" class="btn btn-danger col-3" id="resetButton" name="reset" th:value="Reset" />
+                    <a th:href="@{/reparaciones/agregarReparacion(id=${estimacion.id})}" class="btn btn-warning col-3">Agregar<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     <table>
                         <thead>
                             <tr>

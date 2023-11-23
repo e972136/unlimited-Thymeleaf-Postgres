@@ -104,5 +104,7 @@ public class Estimacion {
                 .orElse(BigDecimal.ZERO);
     }
 
-
+    public Estimacion(int id) {
+        this.id = id;
+    }
 }

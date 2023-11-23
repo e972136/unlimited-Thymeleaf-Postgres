@@ -21,6 +21,7 @@
             <thead>
             <tr class="bg-dark text-white">
                 <th scope="col">Estimacion</th>
+                <th scope="col">Placa</th>
                 <th scope="col">Asegurado</th>
                 <th scope="col">Estimado por</th>
                 <th scope="col"> </th>
@@ -31,6 +32,7 @@
             <tbody>
             <tr th:each="ob:${listado}">
                 <td th:text=${ob.id}></td>
+                <td th:text=${ob.placa}></td>
                 <td th:text=${ob.asegurado}></td>
                 <td th:text=${ob.estimadoPor}  colspan="2"></td>
                 

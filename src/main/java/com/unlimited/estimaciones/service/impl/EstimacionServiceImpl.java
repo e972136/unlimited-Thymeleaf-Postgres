@@ -2,9 +2,12 @@ package com.unlimited.estimaciones.service.impl;
 
 import com.unlimited.estimaciones.entity.Estimacion;
 import com.unlimited.estimaciones.entity.Reparacion;
+import com.unlimited.estimaciones.entity.ReparacionAdicional;
 import com.unlimited.estimaciones.entity.Repuesto;
 import com.unlimited.estimaciones.repository.EstimacionRepository;
+import com.unlimited.estimaciones.repository.ReparacionAdicionalRepository;
 import com.unlimited.estimaciones.repository.ReparacionRepository;
+import com.unlimited.estimaciones.repository.RepuestoRepository;
 import com.unlimited.estimaciones.service.EstimacionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,9 +24,15 @@ public class EstimacionServiceImpl implements EstimacionService {
     private final EstimacionRepository estimacionRepository;
     private final ReparacionRepository reparacionRepository;
 
-    public EstimacionServiceImpl(EstimacionRepository estimacionRepository, ReparacionRepository reparacionRepository) {
+    private final RepuestoRepository repuestoRepository;
+
+    private final ReparacionAdicionalRepository reparacionAdicionalRepository;
+
+    public EstimacionServiceImpl(EstimacionRepository estimacionRepository, ReparacionRepository reparacionRepository, RepuestoRepository repuestoRepository, ReparacionAdicionalRepository reparacionAdicionalRepository) {
         this.estimacionRepository = estimacionRepository;
         this.reparacionRepository = reparacionRepository;
+        this.repuestoRepository = repuestoRepository;
+        this.reparacionAdicionalRepository = reparacionAdicionalRepository;
     }
 
     @Override
@@ -73,12 +82,21 @@ public class EstimacionServiceImpl implements EstimacionService {
             });
             reparacionRepository.saveAll(reparacionesPantalla);
         }
-
 //      Elimina los que no deben estar
-
-
-
         return estimacionDB;
+    }
+
+    @Override
+    public Estimacion saveReparacionesAdicionales(Estimacion estimacion) {
+        List<ReparacionAdicional> reparacionesAdicionalesPantalla = estimacion.getReparacionesAdicionales();
+        if(!isNull(reparacionesAdicionalesPantalla) && !reparacionesAdicionalesPantalla.isEmpty()){
+            Estimacion x = new Estimacion(estimacion.getId());
+            reparacionesAdicionalesPantalla.forEach(t->{
+                t.setEstimacionParent(x);
+            });
+            reparacionAdicionalRepository.saveAll(reparacionesAdicionalesPantalla);
+        }
+        return estimacion;
     }
 
     @Override
@@ -89,5 +107,24 @@ public class EstimacionServiceImpl implements EstimacionService {
         reparacionRepository.saveAndFlush(new Reparacion(0,x," ", BigDecimal.ZERO));
     }
 
+    @Override
+    public void agregarRepuesto(int id) {
+        repuestoRepository.saveAndFlush(new Repuesto(0,new Estimacion(id)," ",BigDecimal.ZERO));
+    }
 
+    @Override
+    public void agregarReparacionAdicional(int id) {
+        reparacionAdicionalRepository.saveAndFlush(
+          new ReparacionAdicional(
+                  null,
+                  new Estimacion(id),
+                  " ",
+                  BigDecimal.ZERO,
+                  " "
+          )
+        );
+    }
+/*
+
+ */
 }

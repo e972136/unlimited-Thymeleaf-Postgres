@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class ReparacionAdicional {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
 
     @ManyToOne
     @JoinColumn(name="estimacionId", nullable=false)

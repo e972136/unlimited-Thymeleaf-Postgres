@@ -16,5 +16,13 @@ public interface EstimacionService {
 
     Estimacion saveReparaciones(Estimacion estimacion);
 
+    Estimacion saveReparacionesAdicionales(Estimacion estimacion);
+
     void agregarReparacion(int id);
+
+    void agregarRepuesto(int id);
+
+    void agregarReparacionAdicional(int id);
+
+
 }
