@@ -15,3 +15,9 @@
         });
     </script>
 ````
+
+````
+Page<ObjectDto> entities =
+objectEntityRepository.findAll(pageable)
+.map(ObjectDto::fromEntity);
+````

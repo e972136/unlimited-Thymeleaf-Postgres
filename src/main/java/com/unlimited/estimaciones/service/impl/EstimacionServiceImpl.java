@@ -4,6 +4,7 @@ import com.unlimited.estimaciones.entity.Estimacion;
 import com.unlimited.estimaciones.entity.Reparacion;
 import com.unlimited.estimaciones.entity.ReparacionAdicional;
 import com.unlimited.estimaciones.entity.Repuesto;
+import com.unlimited.estimaciones.entity.dto.EstimacionResponse;
 import com.unlimited.estimaciones.repository.EstimacionRepository;
 import com.unlimited.estimaciones.repository.ReparacionAdicionalRepository;
 import com.unlimited.estimaciones.repository.ReparacionRepository;
@@ -39,6 +40,26 @@ public class EstimacionServiceImpl implements EstimacionService {
     public Page<Estimacion> findAll(Pageable page) {
         return estimacionRepository.findAll(page);
     }
+
+    /*
+    Page<ObjectDto> entities =
+ objectEntityRepository.findAll(pageable)
+ .map(ObjectDto::fromEntity);
+     */
+
+    //    @Override
+//    public Page<ClientesResponse> findAllByCia(int cia, Pageable page) {
+//        Page<Clientes> allByCia = clientesRepository.findAllByCia(cia, page);
+//        Page<ClientesResponse> map = allByCia.map(act -> ClientesResponse.builder()
+//                .cia(act.getCia())
+//                .nombre(act.getNombre())
+//                .rtn(act.getRtn())
+//                .id(act.getId())
+//                .usuarioingreso(99).build()
+//        );
+//        return map;
+//    }
+
 
     @Override
     public Estimacion findById(int id) {
