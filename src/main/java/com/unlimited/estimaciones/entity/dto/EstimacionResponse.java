@@ -5,8 +5,10 @@ import com.unlimited.estimaciones.entity.Estimacion;
 import com.unlimited.estimaciones.entity.Reparacion;
 import com.unlimited.estimaciones.entity.ReparacionAdicional;
 import com.unlimited.estimaciones.entity.Repuesto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
@@ -19,6 +21,8 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class EstimacionResponse {
     int id;
