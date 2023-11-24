@@ -16,48 +16,46 @@
 
 
 <body>
-    <div class="container mt-5">
+    <div class="container">
         <div class="row">
-            <!-- https://www.baeldung.com/thymeleaf-list -->
-            <form th:action="@{/reparaciones/saveReparaciones}" th:object="${estimacion}" method="POST" id="myForm">
-                <div class="row">
-                    <div class="col-6">
+            <div class="col-sm-12 col-md-12 col-lg-12 card mt-5">
+                <!-- https://www.baeldung.com/thymeleaf-list -->
+                <form th:action="@{/reparaciones/saveReparaciones}" th:object="${estimacion}" method="POST" id="myForm">
+                    <div class="col-6 mt-5">
                         <input type="text" class="form-control" id="estimacion" th:field="*{id}" readonly>
                         <label for="estimacion" ><b>Estimacion</b></label>
                     </div>
-                </div>
-                <fieldset>
-                    <button type="submit" class="btn btn-success col-3">Guardar<i class="fa fa-plus-square" aria-hidden="true"></i></button>
-                    <input type="reset" class="btn btn-danger col-3" id="resetButton" name="reset" th:value="Reset" />
-                    <a th:href="@{/reparaciones/agregarReparacion(id=${estimacion.id})}" class="btn btn-warning col-3">Agregar<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <table>
-                        <thead>
+
+                    <fieldset>
+                        <button type="submit" class="btn btn-success col-3">Guardar<i class="fa fa-plus-square" aria-hidden="true"></i></button>
+                        <input type="reset" class="btn btn-danger col-3" id="resetButton" name="reset" th:value="Reset" />
+                        <a th:href="@{/reparaciones/agregarReparacion(id=${estimacion.id})}" class="btn btn-warning col-3">Agregar<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <table class="mb-5">
+                            <thead>
                             <tr>
-                                <th scope="col">id</th>
-                                <th scope="col">Detalle Reparacion</th>
-                                <th scope="col"> </th>
-                                <th scope="col"> </th>
-                                <th scope="col"> </th>
-                                <th scope="col"> </th>
-                                <th scope="col">Precio</th>
+                                <th class="col-2">id</th>
+                                <th class="col-8">Detalle Reparacion</th>
+                                <th class="col-2">Precio</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <tr th:each="rep, itemStat : *{reparaciones}">
-                                <td>
-                                    <input th:field="*{reparaciones[__${itemStat.index}__].id}" readonly/>
+                                <td class="col-2">
+                                    <input class="form-control" th:field="*{reparaciones[__${itemStat.index}__].id}" readonly/>
                                 </td>
-                                <td colspan="7" >
-                                    <input th:field="*{reparaciones[__${itemStat.index}__].detalleReparacion}"/>
+                                <td class="col-8">
+                                    <input class="form-control" th:field="*{reparaciones[__${itemStat.index}__].detalleReparacion}"/>
                                 </td>
-                                <td>
-                                    <input type="number" step="0.01" th:field="*{reparaciones[__${itemStat.index}__].precio}" />
+                                <td class="col-2">
+                                    <input class="form-control" type="number" step="0.01" th:field="*{reparaciones[__${itemStat.index}__].precio}" />
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                </fieldset>
-            </form>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </form>
+            </div>
+
         </div>
     </div>
 

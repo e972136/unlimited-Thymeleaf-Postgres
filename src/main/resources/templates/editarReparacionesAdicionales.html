@@ -14,44 +14,42 @@
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container">
         <div class="row">
-            <!-- https://www.baeldung.com/thymeleaf-list -->
-            <form th:action="@{/reparacionesAdicionales/saveReparacionesAdicionales}" th:object="${estimacion}" method="POST">
-                <div class="row">
-                    <div class="col-6">
+            <div class="col-sm-12 col-md-12 col-lg-12 card mt-5">
+                <!-- https://www.baeldung.com/thymeleaf-list -->
+                <form th:action="@{/reparacionesAdicionales/saveReparacionesAdicionales}" th:object="${estimacion}" method="POST">
+
+                    <div class="col-6 mt-5">
                         <input type="text" class="form-control" id="estimacion" th:field="*{id}" readonly>
                         <label for="estimacion" ><b>Estimacion</b></label>
                     </div>
-                </div>
-                <fieldset>
-                    <button type="submit" class="btn btn-success col-3">Guardar<i class="fa fa-plus-square" aria-hidden="true"></i></button>
-                    <input type="reset" class="btn btn-danger col-3" id="resetButton" name="reset" th:value="Reset" />
-                    <a th:href="@{/reparacionesAdicionales/agregarReparacionesAdicionales(id=${estimacion.id})}" class="btn btn-warning col-3">Agregar<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <table>
-                        <thead>
+
+                    <fieldset>
+                        <button type="submit" class="btn btn-success col-3">Guardar<i class="fa fa-plus-square" aria-hidden="true"></i></button>
+                        <input type="reset" class="btn btn-danger col-3" id="resetButton" name="reset" th:value="Reset" />
+                        <a th:href="@{/reparacionesAdicionales/agregarReparacionesAdicionales(id=${estimacion.id})}" class="btn btn-warning col-3">Agregar<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <table class="mb-5">
+                            <thead>
                             <tr>
-                                <th scope="col">id</th>
-                                <th scope="col">Detalle Reparacion Adicional</th>
-                                <th scope="col"> </th>
-                                <th scope="col"> </th>
-                                <th scope="col"> </th>
-                                <th scope="col"> </th>
-                                <th scope="col">valorReparacion </th>
-                                <th scope="col">tipo</th>
+                                <th class="col-2">id</th>
+                                <th class="col-6">Detalle Reparacion Adicional</th>
+                                <th class="col-2">valorReparacion </th>
+                                <th class="col-2">tipo</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <tr th:each="rep, itemStat : *{reparacionesAdicionales}">
-                                <td><input th:field="*{reparacionesAdicionales[__${itemStat.index}__].id}" readonly/></td>
-                                <td colspan="5"><input th:field="*{reparacionesAdicionales[__${itemStat.index}__].reparacionAdicionalDetalle}" /></td>
-                                <td><input type="number" step="0.01" th:field="*{reparacionesAdicionales[__${itemStat.index}__].valorReparacion}" /></td>
-                                <td><input th:field="*{reparacionesAdicionales[__${itemStat.index}__].tipo}" /></td>
+                                <td class="col-2"><input class="form-control" th:field="*{reparacionesAdicionales[__${itemStat.index}__].id}" readonly/></td>
+                                <td class="col-6"><input class="form-control" th:field="*{reparacionesAdicionales[__${itemStat.index}__].reparacionAdicionalDetalle}" /></td>
+                                <td class="col-2"><input class="form-control" type="number" step="0.01" th:field="*{reparacionesAdicionales[__${itemStat.index}__].valorReparacion}" /></td>
+                                <td class="col-2"><input class="form-control" th:field="*{reparacionesAdicionales[__${itemStat.index}__].tipo}" /></td>
                             </tr>
-                        </tbody>
-                    </table>
-                </fieldset>
-            </form>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </div>   
 </body>
