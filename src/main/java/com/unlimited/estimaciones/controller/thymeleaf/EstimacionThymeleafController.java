@@ -1,7 +1,10 @@
 package com.unlimited.estimaciones.controller.thymeleaf;
 
+import com.unlimited.estimaciones.config.LoggerColor;
 import com.unlimited.estimaciones.entity.Estimacion;
+import com.unlimited.estimaciones.entity.dto.EstimacionResponse;
 import com.unlimited.estimaciones.service.EstimacionService;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/principal")
 public class EstimacionThymeleafController {
+    private final LoggerColor log = new LoggerColor(LoggerFactory.getLogger(getClass()));
     private final EstimacionService estimacionService;
 
     public EstimacionThymeleafController(EstimacionService estimacionService) {
@@ -28,8 +32,8 @@ public class EstimacionThymeleafController {
             @RequestParam(required = false) String busqueda,
             Model model
     ){
-        System.err.println("/principal/estimaciones");
-        Page<Estimacion> estimaciones=estimacionService.findAll(page);
+        log.infoRed("/principal/estimaciones");
+        Page<EstimacionResponse> estimaciones=estimacionService.findAll(page);
 
         model.addAttribute("listado",estimaciones);
         return "listado";

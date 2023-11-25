@@ -1,7 +1,9 @@
 package com.unlimited.estimaciones.controller.thymeleaf;
 
+import com.unlimited.estimaciones.config.LoggerColor;
 import com.unlimited.estimaciones.entity.Estimacion;
 import com.unlimited.estimaciones.service.EstimacionService;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/reparaciones")
 public class ReparacionesThymeleafController {
+    private final LoggerColor log = new LoggerColor(LoggerFactory.getLogger(getClass()));
     private final EstimacionService estimacionService;
 
     public ReparacionesThymeleafController(EstimacionService estimacionService) {
@@ -31,7 +34,7 @@ public class ReparacionesThymeleafController {
     public String guardarReparaciones(
             @ModelAttribute Estimacion estimacion, Model model
     ){
-        System.err.println("/principal/saveReparaciones/"+estimacion);
+        log.infoRed("/principal/saveReparaciones/"+estimacion);
         estimacion= estimacionService.saveReparaciones(estimacion);
         model.addAttribute("estimacion",estimacion);
         //llamar al endpoint

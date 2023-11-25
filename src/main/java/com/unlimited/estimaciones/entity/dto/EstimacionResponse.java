@@ -1,6 +1,7 @@
 package com.unlimited.estimaciones.entity.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unlimited.estimaciones.entity.Estimacion;
 import com.unlimited.estimaciones.entity.Reparacion;
 import com.unlimited.estimaciones.entity.ReparacionAdicional;
@@ -11,9 +12,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -101,7 +99,22 @@ public class EstimacionResponse {
         this.id = id;
     }
 
-    public EstimacionResponse fromEntity(Estimacion estimacion){
-        return null;
+
+
+    public static EstimacionResponse fromEntity(Estimacion estimacion){
+        ObjectMapper mapper = new ObjectMapper();
+        EstimacionResponse response = null;
+        try {
+
+            response = mapper.readValue(
+              mapper.writeValueAsString(estimacion),
+              EstimacionResponse.class
+            );
+
+        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+            return null;
+        }
+        return response;
     }
 }

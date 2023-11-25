@@ -21,8 +21,7 @@ public class EstimacionController {
     Estimacion obtenerEstimacion(
             @PathVariable int estimacion
     ){
-        Estimacion byId = estimacionService.findById(estimacion);
-        return byId;
+        return estimacionService.findById(estimacion);
     }
 
     @GetMapping("/estimaciones")

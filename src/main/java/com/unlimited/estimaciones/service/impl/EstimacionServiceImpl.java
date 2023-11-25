@@ -1,5 +1,6 @@
 package com.unlimited.estimaciones.service.impl;
 
+import com.unlimited.estimaciones.config.LoggerColor;
 import com.unlimited.estimaciones.entity.Estimacion;
 import com.unlimited.estimaciones.entity.Reparacion;
 import com.unlimited.estimaciones.entity.ReparacionAdicional;
@@ -10,6 +11,7 @@ import com.unlimited.estimaciones.repository.ReparacionAdicionalRepository;
 import com.unlimited.estimaciones.repository.ReparacionRepository;
 import com.unlimited.estimaciones.repository.RepuestoRepository;
 import com.unlimited.estimaciones.service.EstimacionService;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ import static java.util.Objects.isNull;
 
 @Service
 public class EstimacionServiceImpl implements EstimacionService {
+    private final LoggerColor log = new LoggerColor(LoggerFactory.getLogger(getClass()));
     private final EstimacionRepository estimacionRepository;
     private final ReparacionRepository reparacionRepository;
 
@@ -37,33 +40,17 @@ public class EstimacionServiceImpl implements EstimacionService {
     }
 
     @Override
-    public Page<Estimacion> findAll(Pageable page) {
-        return estimacionRepository.findAll(page);
+    public Page<EstimacionResponse> findAll(Pageable page) {
+
+        Page<Estimacion> all = estimacionRepository.findAll(page);
+
+
+        return  all.map(EstimacionResponse::fromEntity);
     }
-
-    /*
-    Page<ObjectDto> entities =
- objectEntityRepository.findAll(pageable)
- .map(ObjectDto::fromEntity);
-     */
-
-    //    @Override
-//    public Page<ClientesResponse> findAllByCia(int cia, Pageable page) {
-//        Page<Clientes> allByCia = clientesRepository.findAllByCia(cia, page);
-//        Page<ClientesResponse> map = allByCia.map(act -> ClientesResponse.builder()
-//                .cia(act.getCia())
-//                .nombre(act.getNombre())
-//                .rtn(act.getRtn())
-//                .id(act.getId())
-//                .usuarioingreso(99).build()
-//        );
-//        return map;
-//    }
-
 
     @Override
     public Estimacion findById(int id) {
-        return estimacionRepository.findById(id).get();
+        return estimacionRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -74,7 +61,7 @@ public class EstimacionServiceImpl implements EstimacionService {
     @Override
     @Transactional
     public Estimacion saveRepuestos(Estimacion estimacion) {
-        Estimacion estimacionDB = estimacionRepository.findById(estimacion.getId()).get();
+        Estimacion estimacionDB = estimacionRepository.findById(estimacion.getId()).orElse(null);
         List<Repuesto> repuestos = estimacion.getRepuestos();
         estimacionDB.getRepuestos().forEach(r->{
             Repuesto repuesto = repuestos.stream().filter(a -> a.getId() == r.getId()).findAny().get();
@@ -86,21 +73,14 @@ public class EstimacionServiceImpl implements EstimacionService {
 
     @Override
     public Estimacion saveReparaciones(Estimacion estimacion) {
-        Estimacion estimacionDB = estimacionRepository.findById(estimacion.getId()).get();
-
-//        reparacionRepository.deleteAllById(estimacionDB.getReparaciones().stream().map(x->x.getId()).collect(Collectors.toList()));
-//        estimacionDB.getReparaciones().forEach(x->
-//                reparacionRepository.deleteById(x.getId())
-//        );
+        Estimacion estimacionDB = estimacionRepository.findById(estimacion.getId()).orElse(null);
 
 //        Actualiza o ingresa datos nuevos
         Estimacion x = new Estimacion();
         List<Reparacion> reparacionesPantalla = estimacion.getReparaciones();
         if(!isNull(reparacionesPantalla) && !reparacionesPantalla.isEmpty()){
             x.setId(estimacionDB.getId());
-            reparacionesPantalla.forEach(t->{
-                t.setEstimacionParent(x);
-            });
+            reparacionesPantalla.forEach(t->t.setEstimacionParent(x));
             reparacionRepository.saveAll(reparacionesPantalla);
         }
 //      Elimina los que no deben estar
@@ -112,9 +92,7 @@ public class EstimacionServiceImpl implements EstimacionService {
         List<ReparacionAdicional> reparacionesAdicionalesPantalla = estimacion.getReparacionesAdicionales();
         if(!isNull(reparacionesAdicionalesPantalla) && !reparacionesAdicionalesPantalla.isEmpty()){
             Estimacion x = new Estimacion(estimacion.getId());
-            reparacionesAdicionalesPantalla.forEach(t->{
-                t.setEstimacionParent(x);
-            });
+            reparacionesAdicionalesPantalla.forEach(t->t.setEstimacionParent(x));
             reparacionAdicionalRepository.saveAll(reparacionesAdicionalesPantalla);
         }
         return estimacion;
@@ -122,7 +100,7 @@ public class EstimacionServiceImpl implements EstimacionService {
 
     @Override
     public void agregarReparacion(int id) {
-        System.out.println("patito "+id);
+        log.infoGreen("patito "+id);
         Estimacion x = new Estimacion();
         x.setId(id);
         reparacionRepository.saveAndFlush(new Reparacion(0,x," ", BigDecimal.ZERO));
