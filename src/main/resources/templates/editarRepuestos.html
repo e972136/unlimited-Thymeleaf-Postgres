@@ -15,8 +15,10 @@
 
 <body>
     <div class="container">
+        <a th:href="@{/principal/editarEstimacion(id=${estimacion.id})}" th:object="${estimacion}"  class="btn btn-primary">Regresar</a>
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12 card mt-5">
+                <h2 class="text-center">Repuestos</h2>
                 <!-- https://www.baeldung.com/thymeleaf-list -->
                 <form th:action="@{/repuestos/saveRepuestos}" th:object="${estimacion}" method="POST">
 
