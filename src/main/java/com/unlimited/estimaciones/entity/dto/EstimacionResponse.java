@@ -1,6 +1,7 @@
 package com.unlimited.estimaciones.entity.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unlimited.estimaciones.entity.Estimacion;
 import com.unlimited.estimaciones.entity.Reparacion;
@@ -105,7 +106,7 @@ public class EstimacionResponse {
         ObjectMapper mapper = new ObjectMapper();
         EstimacionResponse response = null;
         try {
-
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
             response = mapper.readValue(
               mapper.writeValueAsString(estimacion),
               EstimacionResponse.class
