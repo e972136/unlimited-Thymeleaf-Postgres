@@ -123,7 +123,12 @@ public class EstimacionServiceImpl implements EstimacionService {
           )
         );
     }
-/*
+
+    @Override
+    public Estimacion saveEstimacion(Estimacion estimacion) {
+        return estimacionRepository.save(estimacion);
+    }
+    /*
 
  */
 }

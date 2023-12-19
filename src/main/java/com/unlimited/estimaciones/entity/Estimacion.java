@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -16,7 +17,6 @@ import static java.util.Objects.isNull;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Estimacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -106,5 +106,9 @@ public class Estimacion {
 
     public Estimacion(int id) {
         this.id = id;
+    }
+
+    public Estimacion() {
+        fechaEvaluacion = new Date();
     }
 }

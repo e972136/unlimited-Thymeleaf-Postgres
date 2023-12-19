@@ -51,39 +51,52 @@ public class EstimacionThymeleafController {
 
 
     @GetMapping("/editarEstimacion")
-    public String obtenerPaginaEditarEstimacion(
-            Model model,
+    public ModelAndView obtenerPaginaEditarEstimacion(
             RedirectAttributes attributes,
             @RequestParam int id
     ){
 //        /principal/editarEstimacion
+
+        ModelAndView mav = new ModelAndView("editarEstimacion");
         Estimacion estimacion = estimacionService.findById(id);
-        model.addAttribute("estimacion",estimacion);
-        return "editarEstimacion";
+        mav.addObject("estimacion",estimacion);
+        return mav;
     }
 
 
     @GetMapping("/crearEstimacion")
     public ModelAndView crearEstimaciones(
             @RequestParam(value = "message",required = false) String message,
-            @ModelAttribute Estimacion estimacion,
             HttpServletRequest request
     ){
         log.infoRed("/principal/crearEstimacion");
-        ModelAndView mav = new ModelAndView("crearEstimacion");
-        mav.addObject("estimacion",obtenerEstimacion(request));
+        ModelAndView mav = new ModelAndView("editarEstimacion");
+        mav.addObject("estimacion",estimacionService.saveEstimacion(new Estimacion()));
         return mav;
     }
 
-    private Estimacion obtenerEstimacion(HttpServletRequest request){
-        Estimacion estimacion = (Estimacion) request.getSession().getAttribute("estimacion");
-        if(estimacion==null){
-            return new Estimacion();
-        }
-        return estimacion;
+
+    @PostMapping("/crearEstimacion")
+    public ModelAndView saveEstimacion(
+            @ModelAttribute Estimacion estimacion,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttrs
+    ){
+        ModelAndView mav = new ModelAndView("redirect:/principal/estimaciones");
+        estimacionService.saveEstimacion(estimacion);
+        return mav;
     }
 
-    private  void guardarEstimacion(Estimacion estimacion,HttpServletRequest request ){
-        request.getSession().setAttribute("estimacion",estimacion);
-    }
+
+//    private Estimacion obtenerEstimacion(HttpServletRequest request){
+//        Estimacion estimacion = (Estimacion) request.getSession().getAttribute("estimacion");
+//        if(estimacion==null){
+//            return new Estimacion();
+//        }
+//        return estimacion;
+//    }
+//
+//    private  void guardarEstimacion(Estimacion estimacion,HttpServletRequest request ){
+//        request.getSession().setAttribute("estimacion",estimacion);
+//    }
 }
