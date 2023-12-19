@@ -55,7 +55,7 @@ public class EstimacionServiceImpl implements EstimacionService {
 
     @Override
     public List<Estimacion> findAll() {
-        return estimacionRepository.findAll();
+        return estimacionRepository.findAllByOrderByIdDesc();
     }
 
     @Override
