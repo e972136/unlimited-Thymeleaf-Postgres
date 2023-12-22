@@ -12,184 +12,208 @@
 </head>
 
 <body>
+    <a th:href="@{/principal/estimaciones}" class="btn btn-primary">Regresar</a>
 
     <div class="container">
-        <a th:href="@{/principal/estimaciones}" class="btn btn-primary">Regresar</a>
-        <div class="card">
-            <div class="car-body">
-                <form th:action="@{/principal/crearEstimacion}" method="POST" th:object="${estimacion}">
-                    <div class="row col-12 justify-content-center" >
-                        <h2>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>
                             HOJA DE ESTIMACION
-                        </h2>
+                        </h3>
                     </div>
+                    <div class="card-body">
+                        <form th:action="@{/principal/crearEstimacion}" method="POST" th:object="${estimacion}" class="row">
+                            <div class="col-3">
+                                <label for="estimacion"><b>Estimacion</b></label>
+                                <input type="text" class="form-control" id="estimacion" th:field="*{id}" readonly>
+                            </div>
+    
+                            <div class="col-3">
+                                <label for="fechaEvaluacion"><b>Fecha Evaluacion</b></label>
+                                <input type="date" class="form-control" id="fechaEvaluacion" th:field="*{fechaEvaluacion}">
+                            </div>
+                            <div class="col-6">
+                                <label for="implementadoPor"><b>Implementado Por</b></label>
+                                <input type="text" class="form-control" id="implementadoPor" th:field="*{implementadoPor}"
+                                    readonly>
+                            </div>
+                            <div class="col-6">
+                                <label for="asegurado"><b>Asegurado</b></label>
+                                <input type="text" class="form-control" id="asegurado" th:field="*{asegurado}" autocomplete="on">
+                            </div>
+                            <div class="col-6">
+                                <label for="aseguradora"><b>Aseguradora</b></label>
+                                <input type="text" class="form-control" id="aseguradora" th:field="*{aseguradora}" autocomplete="on">
+                            </div>
+                            <div class="col-6">
+                                <label for="estimadoPor"><b>Estimado Por</b></label>
+                                <input type="text" class="form-control" id="estimadoPor" th:field="*{estimadoPor}">
+                            </div>
+                            <div class="col-12">
+                                <h2>
+                                    INFORMACION DEL VEHICULO
+                                </h2>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-3">
-                            <label for="estimacion"><b>Estimacion</b></label>
-                            <input type="text" class="form-control" id="estimacion" th:field="*{id}" readonly>
-                        </div>
+                            <div class="col-3">
+                                <label for="placa"><b>Placa</b></label>
+                                <input type="text" class="form-control" id="placa" th:field="*{placa}">
+                            </div>    
 
-                        <div class="col-3">
-                            <label for="fechaEvaluacion"><b>Fecha Evaluacion</b></label>
-                            <input type="date" class="form-control" id="fechaEvaluacion" th:field="*{fechaEvaluacion}">
-                        </div>
-                        <div class="col-6">
-                            <label for="implementadoPor"><b>Implementado Por</b></label>
-                            <input type="text" class="form-control" id="implementadoPor" th:field="*{implementadoPor}"
-                                readonly>
-                        </div>
-                    </div>
+                            <div class="col-8"></div>
 
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="asegurado"><b>Asegurado</b></label>
-                            <input type="text" class="form-control" id="asegurado" th:field="*{asegurado}" autocomplete="on">
-                        </div>
-                        <div class="col-6">
-                            <label for="aseguradora"><b>Aseguradora</b></label>
-                            <input type="text" class="form-control" id="aseguradora" th:field="*{aseguradora}" autocomplete="on">
-                        </div>
-                    </div>
+                            <div class="col-3">
+                                <label for="marca"><b>Marca</b></label>
+                                <input type="text" class="form-control" id="marca" th:field="*{marca}">
+                            </div>
 
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="estimadoPor"><b>Estimado Por</b></label>
-                            <input type="text" class="form-control" id="estimadoPor" th:field="*{estimadoPor}">
-                        </div>
-                    </div>
+                            <div class="col-4">
+                                <label for="modelo"><b>Modelo</b></label>
+                                <input type="text" class="form-control" id="modelo" th:field="*{modelo}">
+                            </div>
 
-                    <div class="row justify-content-center">
-                        <h2>
-                            INFORMACION DEL VEHICULO
-                        </h2>
-                    </div>
+                            <div class="col-1">
+                                <label for="anioVehiculo"><b>Año</b></label>
+                                <input type="text" class="form-control" id="anioVehiculo" th:field="*{anioVehiculo}">
+                            </div>
+    
+                            <div class="col-2">
+                                <label for="colorVehiculo"><b>Color</b></label>
+                                <input type="text" class="form-control" id="colorVehiculo" th:field="*{colorVehiculo}">
+                            </div>
+    
+                            <div class="col-2">
+                                <label for="kM"><b>kM</b></label>
+                                <input type="text" class="form-control" id="kM" th:field="*{kM}">
+                            </div>
 
-                    <div class="row">
-                        <div class="col-3">
-                            <label for="placa"><b>Placa</b></label>
-                            <input type="text" class="form-control" id="placa" th:field="*{placa}">
-                        </div>                        
-                    </div>
+                            <div class="col-6">
+                                <label for="vinOSerie"><b>Vin O Serie</b></label>
+                                <input type="text" class="form-control" id="vinOSerie" th:field="*{vinOSerie}">
+                            </div>
 
-                    <div class="row">
-                        <div class="col-3">
-                            <label for="marca"><b>Marca</b></label>
-                            <input type="text" class="form-control" id="marca" th:field="*{marca}">
-                        </div>
+                            <div class="col-6"></div>
 
-                        <div class="col-4">
-                            <label for="modelo"><b>Modelo</b></label>
-                            <input type="text" class="form-control" id="modelo" th:field="*{modelo}">
-                        </div>
 
-                        <div class="col-1">
-                            <label for="anioVehiculo"><b>Año</b></label>
-                            <input type="text" class="form-control" id="anioVehiculo" th:field="*{anioVehiculo}">
-                        </div>
+                            
+                            <div class="col-3 mt-1">
+                                <label for="totalRepuestos" >Total de costos de repuestos: </label>
+                            </div>
+                            <div class="col-3 mt-1">
+                                <input type="text" class="form-control" id="totalRepuestos" th:field="*{totalRepuestos}"
+                                    disabled>
+                            </div>
+                            <div class="col-6  mt-1">
+                                <a th:href="@{/repuestos/editarRepuestos(id=*{id})}" class="btn btn-warning form-control">
+                                    LISTA DE REPUESTOS NECESARIOS A REEMPLAZAR
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a>
+                            </div>
 
-                        <div class="col-2">
-                            <label for="colorVehiculo"><b>Color</b></label>
-                            <input type="text" class="form-control" id="colorVehiculo" th:field="*{colorVehiculo}">
-                        </div>
+                            <div class="col-3  mt-1">
+                                <label for="totalReparaciones">Total de costos de mano de obra: </label>
+                            </div>
+                            <div class="col-3  mt-1">
+                                <input type="text" class="form-control" id="totalReparaciones"
+                                    th:field="*{totalReparaciones}" disabled>
+                            </div>
+                            <div class="col-6  mt-1">
+                                <a th:href="@{/reparaciones/editarReparaciones(id=*{id})}" class="btn btn-warning form-control">
+                                    LISTA DE REPARACIONES
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a>
+                            </div>
 
-                        <div class="col-2">
-                            <label for="kM"><b>kM</b></label>
-                            <input type="text" class="form-control" id="kM" th:field="*{kM}">
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="vinOSerie"><b>Vin O Serie</b></label>
-                            <input type="text" class="form-control" id="vinOSerie" th:field="*{vinOSerie}">
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <a th:href="@{/repuestos/editarRepuestos(id=*{id})}" class="btn btn-warning col-6">
-                            LISTA DE REPUESTOS NECESARIOS A REEMPLAZAR
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </a>
-                    </div>
+                            <div class="col-3  mt-1">
+                                <label for="totalReparacionesAdicionales" >Total reparaciones adicionales: </label>
+                            </div>
+                            <div class="col-3  mt-1">
+                                <input type="text" class="form-control " id="totalReparacionesAdicionales"
+                                    th:field="*{totalReparacionesAdicionales}" disabled>
+                            </div>
+                            <div class="col-6  mt-1 ">
+                                <a th:href="@{/reparacionesAdicionales/editar(id=*{id})}"
+                                    class="btn btn-warning form-control">
+                                    LISTA DE REPARACIONES ADICIONALES
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            </div>
+                            
+                            <div class="col-3  mt-1">
+                                <label for="totalCostosAdicionalesMateriales" >Total costos adicionales (materiales): </label>
+                            </div>
+                            <div class="col-3 mt-1">
+                                <input type="number" step="0.01" class="form-control" id="totalCostosAdicionalesMateriales"
+                                th:field="*{totalCostosAdicionalesMateriales}">                        
+                            </div>
 
-                    <div class="row">
-                        <label for="totalRepuestos" class="col-4">Total de costos de repuestos: </label>
-                        <input type="text" class="form-control col-2" id="totalRepuestos" th:field="*{totalRepuestos}"
-                            disabled>
-                    </div>
+                            <div class="col-12">
+                                <h2>
+                                    TOTALES
+                                </h2>
+                            </div>
+                            
 
-                    <div class="row">
-                        <a th:href="@{/reparaciones/editarReparaciones(id=*{id})}" class="btn btn-warning col-6">
-                            LISTA DE REPARACIONES
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        </a>
-                    </div>
+                            <div class="col-3  mt-1">
+                                <label for="totalCostosManoObra">Total Costos Mano de Obra: </label>
+                            </div>
+                            <div class="col-3 mt-1">
+                                <input type="number" step="0.01" class="form-control" id="totalCostosManoObra"
+                                th:field="*{totalCostosManoObra}">
+                            </div>
 
-                    <div class="row">
-                        <label for="totalReparaciones" class="col-4">Total de costos de mano de obra: </label>
-                        <input type="text" class="form-control col-2" id="totalReparaciones"
-                            th:field="*{totalReparaciones}" disabled>
-                    </div>
 
-                    <div class="row">
-                        <a th:href="@{/reparacionesAdicionales/editar(id=*{id})}"
-                            class="btn btn-warning col-6">
-                            LISTA DE REPARACIONES ADICIONALES
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-
-                    </div>
-                    <div class="row">
-                        <label for="totalReparacionesAdicionales" class="col-4">Total reparaciones adicionales: </label>
-                        <input type="text" class="form-control col-2" id="totalReparacionesAdicionales"
-                            th:field="*{totalReparacionesAdicionales}" disabled>
-                    </div>
-                    <div class="row">                        
-                        <label for="totalCostosAdicionalesMateriales" class="col-4">Total costos adicionales (materiales): </label>
-                        <input type="number" step="0.01" class="form-control col-2" id="totalCostosAdicionalesMateriales"
-                            th:field="*{totalCostosAdicionalesMateriales}">                        
-                    </div>
-
-                    <hr>
-
-                    <div class="row col-6">
-                        <h2>
-                            TOTALES
-                        </h2>
-                    </div>
-
-                    <div class="row">
-                        <label for="totalCostosManoObra" class="col-3">Total Costos Mano de Obra: </label>
-                        <input type="number" step="0.01" class="form-control col-2" id="totalCostosManoObra"
-                            th:field="*{totalCostosManoObra}">
-
-                        <label for="CostoManoDeObraGerente" class="col-3">Costo mano de obra gerente: </label>
-                        <input type="number" step="0.01" class="form-control col-2" id="CostoManoDeObraGerente"
+                            <div class="col-3 mt-1">
+                                <label for="CostoManoDeObraGerente">Costo mano de obra gerente: </label>
+                            </div>
+                            <div class="col-3 mt-1">
+                                <input type="number" step="0.01" class="form-control" id="CostoManoDeObraGerente"
                             th:field="*{CostoManoDeObraGerente}">
+                            </div>
+
+                            <div class="col-3 mt-1">
+                                <label for="totalRepuestosT">Total Repuestos: </label>
+                            </div>
+                            <div class="col-3 mt-1">
+                                <input type="number" step="0.01" class="form-control" id="totalRepuestosT"
+                                th:field="*{totalRepuestos}">
+                            </div>
+
+                            <div class="col-6 mt-1">
+
+                            </div>
+
+                            <div class="col-3 mt-1">
+                                <label for="totalCostosManoObraT">Total Costos Mano de Obra: </label>
+                            </div>
+                            <div class="col-3 mt-1">
+                                <input type="number" step="0.01" class="form-control" id="totalCostosManoObraT"
+                                th:field="*{totalCostosManoObra}">
+                            </div>
+
+                            <div class="col-3  mt-1">
+                                <label for="costoMaterialesGerente" >Costo MaterialesG: </label>
+                            </div>
+                            <div class="col-3 mt-1">
+                                <input type="number" step="0.01" class="form-control" id="costoMaterialesGerente"
+                                th:field="*{costoMaterialesGerente}">
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <button type="submit" class="btn btn-primary form-control btn-lg">SAVE</button>
+                            </div>
+
+                        </form>
                     </div>
-
-                    <div class="row">
-                        <label for="totalRepuestosT" class="col-3">Total Repuestos: </label>
-                        <input type="number" step="0.01" class="form-control col-2" id="totalRepuestosT"
-                               th:field="*{totalRepuestos}">
-                    </div>
-
-                    <div class="row">
-                        <label for="totalCostosManoObraT" class="col-3">Total Costos Mano de Obra: </label>
-                        <input type="number" step="0.01" class="form-control col-2" id="totalCostosManoObraT"
-                               th:field="*{totalCostosManoObra}">
-
-                        <label for="costoMaterialesGerente" class="col-3">Costo MaterialesG: </label>
-                        <input type="number" step="0.01" class="form-control col-2" id="costoMaterialesGerente"
-                               th:field="*{costoMaterialesGerente}">
-                    </div>
-
-                    <button type="submit" class="mb-3 btn btn-primary mb-3 form-control btn-lg">SAVE</button>
-                </form>
+                </div>
             </div>
         </div>
-        <a th:href="@{/principal/estimaciones}" class="btn btn-primary">Regresar</a>
     </div>
+    
+    <a th:href="@{/principal/estimaciones}" class="btn btn-primary">Regresar</a>
+
 </body>
 
 </html>
