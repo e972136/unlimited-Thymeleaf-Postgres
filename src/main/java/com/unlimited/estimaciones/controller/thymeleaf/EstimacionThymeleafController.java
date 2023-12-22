@@ -6,6 +6,11 @@ import com.unlimited.estimaciones.entity.dto.EstimacionResponse;
 import com.unlimited.estimaciones.service.EstimacionService;
 import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 @Controller
 @RequestMapping("/principal")
@@ -25,29 +32,37 @@ public class EstimacionThymeleafController {
     }
 
 
-//    @GetMapping("/estimaciones")
-//    public String obtenerEstimaciones(
-//            @PageableDefault(size = 15,sort = "id",direction  = Sort.Direction.DESC) Pageable page,
-//            @RequestParam(value = "message",required = false) String message,
-//            @RequestParam(required = false) String busqueda,
-//            Model model
-//    ){
-//        log.infoRed("/principal/estimaciones");
-//        Page<EstimacionResponse> estimaciones=estimacionService.findAll(page);
-//
-//        model.addAttribute("listado",estimaciones);
-//        return "estimaciones";
-//    }
     @GetMapping("/estimaciones")
     public ModelAndView obtenerEstimaciones(
-            @RequestParam(value = "message",required = false) String message
+            @PageableDefault(size = 15,sort = "id",direction  = Sort.Direction.DESC) Pageable page,
+            @RequestParam(value = "message",required = false) String message,
+            @RequestParam(required = false) String busqueda,
+            Model model
     ){
         log.infoRed("/principal/estimaciones");
-        ModelAndView mav = new ModelAndView("estimaciones");
-        List<Estimacion> estimaciones = estimacionService.findAll();
-        mav.addObject("listado",estimaciones);
+        ModelAndView mav = new ModelAndView("listado");
+        Page<EstimacionResponse> estimaciones;
+        if(isNull(busqueda)){
+            estimaciones=estimacionService.findAll(page);
+        }else{
+            estimaciones=estimacionService.findAll(busqueda,page);
+        }
+
+
+        model.addAttribute("listado",estimaciones);
         return mav;
     }
+
+//    @GetMapping("/estimaciones")
+//    public ModelAndView obtenerEstimaciones(
+//            @RequestParam(value = "message",required = false) String message
+//    ){
+//        log.infoRed("/principal/estimaciones");
+//        ModelAndView mav = new ModelAndView("estimaciones");
+//        List<Estimacion> estimaciones = estimacionService.findAll();
+//        mav.addObject("listado",estimaciones);
+//        return mav;
+//    }
 
 
     @GetMapping("/editarEstimacion")

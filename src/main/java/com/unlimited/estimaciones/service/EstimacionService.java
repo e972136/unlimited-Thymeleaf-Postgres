@@ -27,4 +27,6 @@ public interface EstimacionService {
 
 
     Estimacion saveEstimacion(Estimacion estimacion);
+
+    Page<EstimacionResponse> findAll(String busqueda, Pageable page);
 }

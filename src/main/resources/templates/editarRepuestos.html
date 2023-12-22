@@ -14,44 +14,69 @@
 </head>
 
 <body>
+    <a th:href="@{/principal/editarEstimacion(id=${estimacion.id})}" th:object="${estimacion}"  class="btn btn-primary">Regresar</a>
     <div class="container">
-        <a th:href="@{/principal/editarEstimacion(id=${estimacion.id})}" th:object="${estimacion}"  class="btn btn-primary">Regresar</a>
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12 card mt-5">
-                <h2 class="text-center">Repuestos</h2>
-                <!-- https://www.baeldung.com/thymeleaf-list -->
-                <form th:action="@{/repuestos/saveRepuestos}" th:object="${estimacion}" method="POST">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Repuestos</h3>
+                    </div>
 
-                        <div class="col-6 mt-5">
-                            <input type="text" class="form-control" id="estimacion" th:field="*{id}" readonly>
-                            <label for="estimacion" ><b>Estimacion</b></label>
-                        </div>
+                    <div class="card-body">
+                        <!-- https://www.baeldung.com/thymeleaf-list -->
+                        <form th:action="@{/repuestos/saveRepuestos}" th:object="${estimacion}" method="POST" class="row">
+                            <div class="col-1">                                
+                                <label for="estimacion" ><b>Estimacion</b></label>
+                            </div>    
 
-                    <fieldset>
-                        <button type="submit" class="btn btn-success col-3">Guardar<i class="fa fa-plus-square" aria-hidden="true"></i></button>
-                        <input type="reset" id="resetButton" class="btn btn-danger col-3" name="reset" th:value="Reset" />
-                        <a th:href="@{/repuestos/agregarRepuesto(id=${estimacion.id})}" class="btn btn-warning col-3">Agregar<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                        <table class="mb-5">
-                            <thead>
-                            <tr>
-                                <th class="col-2">id</th>
-                                <th class="col-8">Descripcion</th>
-                                <th class="col-2">Precio</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="rep, itemStat : *{repuestos}">
-                                <td class="col-2"><input class="form-control"  th:field="*{repuestos[__${itemStat.index}__].id}" readonly/></td>
-                                <td class="col-8"><input class="form-control"  th:field="*{repuestos[__${itemStat.index}__].descripcion}" /></td>
-                                <td class="col-2"><input class="form-control" type="number" step="0.01" th:field="*{repuestos[__${itemStat.index}__].precio}" /></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </fieldset>
-                </form>
+                            <div class="col-2">
+                                <input type="text" class="form-control" id="estimacion" th:field="*{id}" readonly>
+                            </div>
+
+
+                            <div class="col-9"></div>
+
+                            
+                            <div class="col-3 mt-1">
+                                <button type="submit" class="btn btn-success form-control">Guardar<i class="fa fa-plus-square " aria-hidden="true"></i></button>
+                            </div>
+                            <div class="col-3 mt-1">
+                                <input type="reset" id="resetButton" class="btn btn-danger form-control" name="reset" th:value="Reset" />
+                            </div>
+                            <div class="col-3 mt-1">
+                                <a th:href="@{/repuestos/agregarRepuesto(id=${estimacion.id})}" class="btn btn-warning form-control">Agregar<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="col-3"></div>
+                          
+                            <div class="col-12">
+                                <fieldset>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th class="col-2">id</th>
+                                            <th class="col-8">Descripcion</th>
+                                            <th class="col-2">Precio</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="rep, itemStat : *{repuestos}">
+                                            <td class="col-2"><input class="form-control"  th:field="*{repuestos[__${itemStat.index}__].id}" readonly/></td>
+                                            <td class="col-8"><input class="form-control"  th:field="*{repuestos[__${itemStat.index}__].descripcion}" /></td>
+                                            <td class="col-2"><input class="form-control" type="number" step="0.01" th:field="*{repuestos[__${itemStat.index}__].precio}" /></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </fieldset>     
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>   
+    </div>
+
 </body>
 
 </html>

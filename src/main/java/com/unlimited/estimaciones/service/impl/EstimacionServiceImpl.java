@@ -48,6 +48,19 @@ public class EstimacionServiceImpl implements EstimacionService {
         return  all.map(EstimacionResponse::fromEntity);
     }
 
+
+    @Override
+    public Page<EstimacionResponse> findAll(String busqueda, Pageable page) {
+        int id = 0;
+        try{
+            id = Integer.parseInt(busqueda);
+        }catch (Exception e){
+
+        }
+        Page<Estimacion> all = estimacionRepository.findAllByPlacaContainingIgnoreCaseOrAseguradoContainingIgnoreCaseOrId(busqueda,busqueda,id,page);
+        return all.map(EstimacionResponse::fromEntity);
+    }
+
     @Override
     public Estimacion findById(int id) {
         return estimacionRepository.findById(id).orElse(null);
@@ -128,6 +141,8 @@ public class EstimacionServiceImpl implements EstimacionService {
     public Estimacion saveEstimacion(Estimacion estimacion) {
         return estimacionRepository.save(estimacion);
     }
+
+
     /*
 
  */
