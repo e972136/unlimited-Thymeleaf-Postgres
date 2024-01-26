@@ -19,6 +19,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -60,7 +63,26 @@ public class EstimacionServiceImpl implements EstimacionService {
         Page<Estimacion> all = estimacionRepository.findAllByPlacaContainingIgnoreCaseOrAseguradoContainingIgnoreCaseOrId(busqueda,busqueda,id,page);
         return all.map(EstimacionResponse::fromEntity);
     }
+    public static int equalizeArray(List<Integer> arr) {
+        // Write your code here
+        Map<Integer, Long> collect = arr.stream()
+                .collect(Collectors.groupingBy(Function.identity(),
+                        Collectors.counting()));
+        Long max = null;
+        for(Integer key: collect.keySet()){
+            if(max==null){
+                max = collect.get(key);
+            }else{
+                Long n = collect.get(key);
+                if(max<n){
+                    max = n;
+                }
+            }
+        }
 
+        return arr.size()-Integer.parseInt(max+"");
+
+    }
     @Override
     public Estimacion findById(int id) {
         return estimacionRepository.findById(id).orElse(null);
