@@ -17,7 +17,8 @@ import static java.util.Objects.isNull;
 @Entity
 @Data
 @AllArgsConstructor
-public class Estimacion {
+public class
+Estimacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;

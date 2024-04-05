@@ -24,6 +24,38 @@
                     </div>
 
                     <div class="card-body">
+                        <form th:action="@{/repuestos/saveRepuestosEntity(idEstimacion=*{idEstimacion})}" th:object="${repuestoRequest}" method="POST">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="form-label">Detalle Repuesto</label>
+
+                                    <input
+                                            class="form-control"
+                                            type="text"
+                                            name="descripcion"
+                                            required
+                                    />
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">Precio</label>
+
+                                    <input
+                                            class="form-control"
+                                            type="number"
+                                            step="0.01"
+                                            name="precio"
+                                            required
+                                    />
+                                </div>
+                                <button type="submit" class="btn btn-primary col-3">
+                                    Agregar Repuessto
+                                </button>
+                            </div>
+
+                        </form>
+
+
+
                         <!-- https://www.baeldung.com/thymeleaf-list -->
                         <form th:action="@{/repuestos/saveRepuestos}" th:object="${estimacion}" method="POST" class="row">
                             <div class="col-1">                                
@@ -41,12 +73,12 @@
                             <div class="col-3 mt-1">
                                 <button type="submit" class="btn btn-success form-control">Guardar<i class="fa fa-plus-square " aria-hidden="true"></i></button>
                             </div>
-                            <div class="col-3 mt-1">
-                                <input type="reset" id="resetButton" class="btn btn-danger form-control" name="reset" th:value="Reset" />
-                            </div>
-                            <div class="col-3 mt-1">
-                                <a th:href="@{/repuestos/agregarRepuesto(id=${estimacion.id})}" class="btn btn-warning form-control">Agregar<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                            </div>
+<!--                            <div class="col-3 mt-1">-->
+<!--                                <input type="reset" id="resetButton" class="btn btn-danger form-control" name="reset" th:value="Reset" />-->
+<!--                            </div>-->
+<!--                            <div class="col-3 mt-1">-->
+<!--                                <a th:href="@{/repuestos/agregarRepuesto(id=${estimacion.id})}" class="btn btn-warning form-control">Agregar<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>-->
+<!--                            </div>-->
                             <div class="col-3"></div>
                           
                             <div class="col-12">
