@@ -40,3 +40,4 @@ objectEntityRepository.findAll(pageable)
         * .addFlashAttribute("clase", "warning");
         * .addFlashAttribute("clase", "success");
         * .addFlashAttribute("clase", "info");
+* [Auto Reload](https://www.geeksforgeeks.org/how-to-automatic-refresh-a-web-page-in-fixed-time/)
