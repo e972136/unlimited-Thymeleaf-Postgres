@@ -14,16 +14,18 @@
 </head>
 
 <body>
-    <a th:href="@{/principal/editarEstimacion(id=${estimacion.id})}" th:object="${estimacion}"  class="btn btn-primary">Regresar</a>
+
     <div class="container">
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header">
+                        <a th:href="@{/principal/editarEstimacion(id=${estimacion.id})}" th:object="${estimacion}"  class="btn btn-primary">Regresar</a>
                         <h3 class="text-center">Repuestos</h3>
                     </div>
 
                     <div class="card-body">
+
                         <form th:action="@{/repuestos/saveRepuestosEntity(idEstimacion=*{idEstimacion})}" th:object="${repuestoRequest}" method="POST">
                             <div class="row">
                                 <div class="col-6">
@@ -89,13 +91,19 @@
                                             <th class="col-2">id</th>
                                             <th class="col-8">Descripcion</th>
                                             <th class="col-2">Precio</th>
+                                            <th class="col-2">Borrar</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="rep, itemStat : *{repuestos}">
                                             <td class="col-2"><input class="form-control"  th:field="*{repuestos[__${itemStat.index}__].id}" readonly/></td>
-                                            <td class="col-8"><input class="form-control"  th:field="*{repuestos[__${itemStat.index}__].descripcion}" /></td>
-                                            <td class="col-2"><input class="form-control" type="number" step="0.01" th:field="*{repuestos[__${itemStat.index}__].precio}" /></td>
+                                            <td class="col-7"><input class="form-control"  th:field="*{repuestos[__${itemStat.index}__].descripcion}" required/></td>
+                                            <td class="col-2"><input class="form-control" type="number" step="0.01" th:field="*{repuestos[__${itemStat.index}__].precio}" required/></td>
+                                            <td class="col-1">
+                                                <a th:href="@{/repuestos/eliminarRepuesto(idRepuesto=${rep.id},idEstimacion=${estimacion.id})}" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>

@@ -61,6 +61,17 @@ public class RepuestosThymeleafController {
         return "redirect:/repuestos/editarRepuestos/?id="+idEstimacion;
     }
 
+    @GetMapping("eliminarRepuesto")
+    public String eliminarRepuesto(
+            @RequestParam Integer idEstimacion,
+            @RequestParam int idRepuesto,
+            Model model
+    ){
+
+        int estimacion = repuestoService.eliminarRepuesto(idRepuesto);
+        return "redirect:/repuestos/editarRepuestos?id="+idEstimacion;
+    }
+
     @GetMapping("agregarRepuesto")
     public String agregarRepuesto(
             @RequestParam int id,
@@ -70,4 +81,6 @@ public class RepuestosThymeleafController {
         //llamar al endpoint
         return "redirect:/repuestos/editarRepuestos?id="+id;
     }
+
+
 }

@@ -5,7 +5,10 @@ import com.unlimited.estimaciones.entity.Repuesto;
 import com.unlimited.estimaciones.entity.dto.RepuestoRequest;
 import com.unlimited.estimaciones.repository.RepuestoRepository;
 import com.unlimited.estimaciones.service.RepuestoService;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class RepuestoServiceImpl implements RepuestoService {
 
     private final RepuestoRepository repuestoRepository;
@@ -22,14 +25,14 @@ public class RepuestoServiceImpl implements RepuestoService {
         repuesto.setEstimacionParent(x);
         repuesto.setDescripcion(repuestoRequest.descripcion());
         repuesto.setPrecio(repuestoRequest.precio());
-        /*
-             Estimacion estimacionParent;
-
-    String descripcion;
-    BigDecimal precio;
-        * */
-
         repuestoRepository.save(repuesto);
         return null;
+    }
+
+    @Override
+    public int eliminarRepuesto(int idRepuesto) {
+        Repuesto repuesto = repuestoRepository.findById(idRepuesto).get();
+        repuestoRepository.delete(repuesto);
+        return repuesto.getEstimacionParent().getId();
     }
 }
